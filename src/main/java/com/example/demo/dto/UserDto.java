@@ -1,7 +1,12 @@
 package com.example.demo.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class UserDto {
+    @NotNull
     private Long id;
+    @NotBlank
     private String name;
 
     public Long getId() { return id; }
