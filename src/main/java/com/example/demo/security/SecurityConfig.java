@@ -15,11 +15,15 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            // .authorizeHttpRequests(auth -> auth
+            //     .requestMatchers("/hello").permitAll()
+            //     .anyRequest().authenticated()
+            // )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/hello").permitAll()
+                .requestMatchers("/users/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
-            // .httpBasic(httpBasic -> httpBasic.realmName("MyApp"));
             .httpBasic(httpBasic -> httpBasic
                     .authenticationEntryPoint((request, response, authException) -> {
                         response.setStatus(401);

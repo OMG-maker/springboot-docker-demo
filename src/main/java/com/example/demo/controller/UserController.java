@@ -51,6 +51,16 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/users/{id}")
+    public UserDto getUser(@PathVariable Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        UserDto dto = new UserDto();
+        dto.setId(user.getId());
+        dto.setName(user.getName());
+        return dto;
+    }
+
     @PutMapping("/users/{id}")
     public UserDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         if (!userRepository.existsById(id)) {
