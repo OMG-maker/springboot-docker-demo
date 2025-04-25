@@ -35,10 +35,12 @@ public class UserController {
         User user = new User();
         user.setId(userDto.getId());
         user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail()); // 추가
         user = userRepository.save(user);
         UserDto response = new UserDto();
         response.setId(user.getId());
         response.setName(user.getName());
+        response.setEmail(user.getEmail()); // 추가
         return response;
     }
 
@@ -60,6 +62,7 @@ public class UserController {
             UserDto dto = new UserDto();
             dto.setId(user.getId());
             dto.setName(user.getName());
+            dto.setEmail(user.getEmail()); // 추가
             return dto;
         });
     }
@@ -71,6 +74,7 @@ public class UserController {
         UserDto dto = new UserDto();
         dto.setId(user.getId());
         dto.setName(user.getName());
+        dto.setEmail(user.getEmail()); // 추가
         return dto;
     }
 
@@ -82,10 +86,12 @@ public class UserController {
         User user = new User();
         user.setId(id);
         user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail()); // 추가
         user = userRepository.save(user);
         UserDto response = new UserDto();
         response.setId(user.getId());
         response.setName(user.getName());
+        response.setEmail(user.getEmail()); // 추가
         return response;
     }
 

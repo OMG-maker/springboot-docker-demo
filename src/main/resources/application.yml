@@ -8,10 +8,13 @@ spring:
       connection-timeout: 30000
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate # update x <- Flyway가 스키마 관리하도록 설정
     open-in-view: false
   security:
     user:
       name: admin
       password: password
       roles: ADMIN
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
