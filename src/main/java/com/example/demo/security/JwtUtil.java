@@ -3,14 +3,19 @@ package com.example.demo.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import java.util.Date;
 
+@Component
 public class JwtUtil {
-    // 최소 32바이트(256비트) 이상의 키
-    private static final String SECRET_KEY = "this-is-a-very-long-secret-key-for-jwt-authentication-1234567890";
-    private static final long EXPIRATION_TIME = 864_000_000; // 10 days
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
-    public static String generateToken(String username) {
+    @Value("${jwt.expiration}")
+    private long EXPIRATION_TIME;
+
+    public String generateToken(String username) {
         return Jwts.builder()
             .subject(username)
             .issuedAt(new Date())
@@ -19,7 +24,7 @@ public class JwtUtil {
             .compact();
     }
 
-    public static String getUsernameFromToken(String token) {
+    public String getUsernameFromToken(String token) {
         return Jwts.parser()
             .verifyWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)))
             .build()
@@ -28,8 +33,6 @@ public class JwtUtil {
             .getSubject();
     }
 }
-
-
 
 // package com.example.demo.security;
 

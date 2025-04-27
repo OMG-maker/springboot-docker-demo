@@ -10,22 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AuthController {
-    // @PostMapping("/login")
-    // public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-    //     if ("admin".equals(loginRequest.getUsername()) && "password".equals(loginRequest.getPassword())) {
-    //         String token = JwtUtil.generateToken(loginRequest.getUsername());
-    //         return ResponseEntity.ok(token);
-    //     }
-    //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    // }
-    // @PostMapping("/login")
-    
+    private final JwtUtil jwtUtil;
+
+    public AuthController(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         System.out.println("Received username: " + loginRequest.getUsername());
         System.out.println("Received password: " + loginRequest.getPassword());
         if ("admin".equals(loginRequest.getUsername()) && "password".equals(loginRequest.getPassword())) {
-            String token = JwtUtil.generateToken(loginRequest.getUsername());
+            String token = jwtUtil.generateToken(loginRequest.getUsername());
             return ResponseEntity.ok(token);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
